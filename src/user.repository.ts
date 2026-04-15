@@ -3,6 +3,9 @@ export class UserRepository {
 
   save(user) {
     this.users.push(user);
-    console.log(this.users);
+  }
+
+  list() {
+    return this.users;
   }
 }
