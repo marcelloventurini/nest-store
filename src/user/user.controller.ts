@@ -3,10 +3,10 @@ import { UserRepository } from './user.repository.js';
 
 @Controller('/users')
 export class UserController {
-  private userRepository: UserRepository = new UserRepository();
+  constructor(private userRepository: UserRepository) {}
 
   @Post()
-  createUser(@Body() userData) {
+  createUser(@Body() userData: string) {
     this.userRepository.save(userData);
     return userData;
   }

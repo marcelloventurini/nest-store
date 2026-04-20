@@ -1,7 +1,10 @@
-export class UserRepository {
-  private users: any[] = [];
+import { Injectable } from '@nestjs/common';
 
-  save(user) {
+@Injectable()
+export class UserRepository {
+  private users: string[] = [];
+
+  save(user: string) {
     this.users.push(user);
   }
 
