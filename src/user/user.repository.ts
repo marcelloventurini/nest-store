@@ -27,4 +27,8 @@ export class UserRepository {
     Object.assign(user, userData);
     return user;
   }
+
+  delete(id: string) {
+    return (this.users = this.users.filter((user) => user.id !== id));
+  }
 }
