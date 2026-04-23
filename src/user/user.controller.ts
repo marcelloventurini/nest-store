@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UserRepository } from './user.repository.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { User } from './user.entity.js';
+import { ListUserDto } from './dto/list-user.dto.js';
 
 @Controller('/users')
 export class UserController {
@@ -11,11 +12,12 @@ export class UserController {
   createUser(@Body() userData: CreateUserDto) {
     const user = new User(userData);
     this.userRepository.save(user);
-    return user;
+    return new ListUserDto(user.id, user.name);
   }
 
   @Get()
   listUsers() {
-    return this.userRepository.list();
+    const savedUsers = this.userRepository.list();
+    return savedUsers.map((user) => new ListUserDto(user.id, user.name));
   }
 }
