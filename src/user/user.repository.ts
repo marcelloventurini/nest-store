@@ -17,4 +17,14 @@ export class UserRepository {
     const user = this.users.find((user) => user.email === email);
     return user !== undefined;
   }
+
+  update(id: string, userData: Partial<User>) {
+    const user = this.users.find((user) => user.id === id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    Object.assign(user, userData);
+    return user;
+  }
 }
