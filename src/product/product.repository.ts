@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto.js';
+import { Product } from './product.entity.js';
 
 @Injectable()
 export class ProductRepository {
-  private products: CreateProductDto[] = [];
+  private products: Product[] = [];
 
-  save(product: CreateProductDto) {
+  save(product: Product) {
     this.products.push(product);
   }
 
