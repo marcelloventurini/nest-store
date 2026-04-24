@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ProductRepository } from './product.repository.js';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto.js';
+import { UpdateProductDto } from './dto/update-product.dto.js';
 import { Product } from './product.entity.js';
+import { ProductRepository } from './product.repository.js';
 
 @Controller('/products')
 export class ProductController {
@@ -17,5 +18,14 @@ export class ProductController {
   @Get()
   listProducts() {
     return this.productRepository.list();
+  }
+
+  @Put('/:id')
+  updateProduct(
+    @Param('id') id: string,
+    @Body() productData: UpdateProductDto,
+  ) {
+    const product = this.productRepository.update(id, productData);
+    return product;
   }
 }
