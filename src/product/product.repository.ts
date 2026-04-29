@@ -22,4 +22,10 @@ export class ProductRepository {
     Object.assign(product, productData);
     return product;
   }
+
+  delete(id: string) {
+    return (this.products = this.products.filter(
+      (product) => product.id !== id,
+    ));
+  }
 }

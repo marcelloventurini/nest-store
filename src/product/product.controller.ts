@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
 import { Product } from './product.entity.js';
@@ -27,5 +35,11 @@ export class ProductController {
   ) {
     const product = this.productRepository.update(id, productData);
     return product;
+  }
+
+  @Delete('/:id')
+  deleteProduct(@Param('id') id: string) {
+    this.productRepository.delete(id);
+    return { message: 'Product deleted successfully' };
   }
 }
