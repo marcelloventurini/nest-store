@@ -24,7 +24,12 @@ export class UserRepository {
       throw new Error('User not found');
     }
 
-    Object.assign(user, userData);
+    Object.entries(userData).forEach(([key, value]) => {
+      if (value === undefined) return;
+
+      user[key] = value;
+    });
+
     return user;
   }
 

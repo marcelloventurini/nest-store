@@ -19,7 +19,12 @@ export class ProductRepository {
       throw new Error('Product not found.');
     }
 
-    Object.assign(product, productData);
+    Object.entries(productData).forEach(([key, value]) => {
+      if (value === undefined) return;
+
+      product[key] = value;
+    });
+
     return product;
   }
 
