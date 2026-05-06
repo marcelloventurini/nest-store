@@ -34,9 +34,8 @@ export class UserController {
   }
 
   @Put('/:id')
-  updateUser(@Param('id') id: string, @Body() userData: UpdateUserDto) {
-    const user = this.userRepository.update(id, userData);
-    return user;
+  async updateUser(@Param('id') id: string, @Body() userData: UpdateUserDto) {
+    return await this.userService.updateUser(id, userData);
   }
 
   @Delete('/:id')
