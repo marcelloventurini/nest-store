@@ -22,9 +22,9 @@ export class UserController {
   ) {}
 
   @Post()
-  createUser(@Body() userData: CreateUserDto) {
+  async createUser(@Body() userData: CreateUserDto) {
     const user = new User(userData);
-    this.userRepository.save(user);
+    await this.userService.createUser(user);
     return new ListUserDto(user.id, user.name);
   }
 

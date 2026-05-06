@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity.js';
 import { ListUserDto } from './dto/list-user.dto.js';
+import { User } from './user.entity.js';
 
 @Injectable()
 export class UserService {
@@ -13,10 +13,12 @@ export class UserService {
 
   async listUsers() {
     const users = await this.userRepository.find();
-    const userList = users.map((user) => {
-      new ListUserDto(user.id, user.name);
-    });
+    const userList = users.map((user) => new ListUserDto(user.id, user.name));
 
     return userList;
+  }
+
+  async createUser(userData: User) {
+    await this.userRepository.save(userData);
   }
 }
