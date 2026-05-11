@@ -11,15 +11,11 @@ import { CreateUserDto } from './dto/create-user.dto.js';
 import { ListUserDto } from './dto/list-user.dto.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { User } from './user.entity.js';
-import { UserRepository } from './user.repository.js';
 import { UserService } from './user.service.js';
 
 @Controller('/users')
 export class UserController {
-  constructor(
-    private userRepository: UserRepository,
-    private userService: UserService,
-  ) {}
+  constructor(private userService: UserService) {}
 
   @Post()
   async createUser(@Body() userData: CreateUserDto) {

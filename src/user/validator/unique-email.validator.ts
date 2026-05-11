@@ -5,15 +5,15 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { UserRepository } from '../user.repository.js';
+import { UserService } from '../user.service.js';
 
 @Injectable()
 @ValidatorConstraint({ async: true })
 export class UniqueEmailValidator implements ValidatorConstraintInterface {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userService: UserService) {}
 
-  validate(value: string): boolean {
-    const emailExists = this.userRepository.existingEmail(value);
+  async validate(value: string): Promise<boolean> {
+    const emailExists = await this.userService.emailExists(value);
     return !emailExists;
   }
 }
