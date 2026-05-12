@@ -8,19 +8,24 @@ import {
   Put,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto.js';
+import { ListProductDto } from './dto/list-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
 import { Product } from './product.entity.js';
 import { ProductRepository } from './product.repository.js';
+import { ProductService } from './product.service.js';
 
 @Controller('/products')
 export class ProductController {
-  constructor(private productRepository: ProductRepository) {}
+  constructor(
+    private productRepository: ProductRepository,
+    private productService: ProductService,
+  ) {}
 
   @Post()
-  createProduct(@Body() productData: CreateProductDto) {
+  async createProduct(@Body() productData: CreateProductDto) {
     const product = new Product(productData);
-    this.productRepository.save(product);
-    return productData;
+    await this.productService.createProduct(product);
+    return new ListProductDto(product.id, product.name);
   }
 
   @Get()
