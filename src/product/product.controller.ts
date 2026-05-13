@@ -37,7 +37,7 @@ export class ProductController {
 
   @Get()
   listProducts() {
-    return this.productRepository.list();
+    return this.productService.listProducts();
   }
 
   @Put('/:id')
