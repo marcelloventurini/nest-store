@@ -25,7 +25,14 @@ export class ProductController {
   async createProduct(@Body() productData: CreateProductDto) {
     const product = new Product(productData);
     await this.productService.createProduct(product);
-    return new ListProductDto(product.id, product.name);
+    return new ListProductDto(
+      product.id,
+      product.name,
+      product.price,
+      product.availableItems,
+      product.description,
+      product.category,
+    );
   }
 
   @Get()
