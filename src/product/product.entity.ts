@@ -18,7 +18,13 @@ export class Product {
   @Column({ name: 'name', length: 100, nullable: false })
   name!: string;
 
-  @Column({ name: 'price', nullable: false })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    name: 'price',
+    nullable: false,
+  })
   price!: number;
 
   @Column({ name: 'available_items', nullable: false })
