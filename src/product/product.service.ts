@@ -33,4 +33,8 @@ export class ProductService {
   async updateProduct(id: string, productData: Partial<Product>) {
     await this.productRepository.update(id, productData);
   }
+
+  async deleteProduct(id: string) {
+    await this.productRepository.delete(id);
+  }
 }
