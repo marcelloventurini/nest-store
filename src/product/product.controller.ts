@@ -36,17 +36,16 @@ export class ProductController {
   }
 
   @Get()
-  listProducts() {
-    return this.productService.listProducts();
+  async listProducts() {
+    return await this.productService.listProducts();
   }
 
   @Put('/:id')
-  updateProduct(
+  async updateProduct(
     @Param('id') id: string,
     @Body() productData: UpdateProductDto,
   ) {
-    const product = this.productRepository.update(id, productData);
-    return product;
+    return await this.productService.updateProduct(id, productData);
   }
 
   @Delete('/:id')
