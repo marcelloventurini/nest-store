@@ -11,15 +11,11 @@ import { CreateProductDto } from './dto/create-product.dto.js';
 import { ListProductDto } from './dto/list-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
 import { Product } from './product.entity.js';
-import { ProductRepository } from './product.repository.js';
 import { ProductService } from './product.service.js';
 
 @Controller('/products')
 export class ProductController {
-  constructor(
-    private productRepository: ProductRepository,
-    private productService: ProductService,
-  ) {}
+  constructor(private productService: ProductService) {}
 
   @Post()
   async createProduct(@Body() productData: CreateProductDto) {
