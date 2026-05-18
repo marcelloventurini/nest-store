@@ -1,4 +1,14 @@
-import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator';
+import { CreateProductCharacteristicDto } from './create-product-characteristic.dto.js';
+import { CreateProductImageDto } from './create-product-image.dto.js';
 
 export class CreateProductDto {
   @IsUUID(undefined, { message: 'Invalid user ID format' })
@@ -20,4 +30,14 @@ export class CreateProductDto {
 
   @IsString()
   readonly category!: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateProductCharacteristicDto)
+  readonly characteristics!: CreateProductCharacteristicDto[];
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateProductImageDto)
+  readonly images!: CreateProductImageDto[];
 }

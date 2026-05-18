@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Product } from './product.entity.js';
 
 @Entity({ name: 'product_characteristics' })
 export class ProductCharacteristic {
@@ -10,4 +11,18 @@ export class ProductCharacteristic {
 
   @Column({ name: 'description', length: 255, nullable: false })
   description!: string;
+
+  @ManyToOne(() => Product, (product) => product.characteristics, {
+    orphanedRowAction: 'delete',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  product!: Product;
+
+  constructor(partial: Partial<ProductCharacteristic>) {
+    Object.assign(this, partial);
+    if (!this.id) {
+      this.id = crypto.randomUUID();
+    }
+  }
 }
