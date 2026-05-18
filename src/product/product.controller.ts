@@ -10,6 +10,8 @@ import {
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { ListProductDto } from './dto/list-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
+import { ProductCharacteristic } from './product-characteristic.entity.js';
+import { ProductImage } from './product-image.entity.js';
 import { Product } from './product.entity.js';
 import { ProductService } from './product.service.js';
 
@@ -19,16 +21,16 @@ export class ProductController {
 
   @Post()
   async createProduct(@Body() productData: CreateProductDto) {
-    const product = new Product(productData);
-    await this.productService.createProduct(product);
-    return new ListProductDto(
-      product.id,
-      product.name,
-      product.price,
-      product.availableItems,
-      product.description,
-      product.category,
+    const { characteristics, images, ...basicProductData } = productData;
+    const product = new Product(basicProductData);
+
+    product.characteristics = characteristics.map(
+      (c) => new ProductCharacteristic(c),
     );
+    product.images = images.map((img) => new ProductImage(img));
+
+    const savedProduct = await this.productService.createProduct(product);
+    return new ListProductDto(savedProduct);
   }
 
   @Get()
