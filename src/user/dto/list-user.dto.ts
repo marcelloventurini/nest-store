@@ -1,6 +1,11 @@
+import { User } from '../user.entity.js';
+
 export class ListUserDto {
-  constructor(
-    readonly id: string,
-    readonly name: string,
-  ) {}
+  readonly id: string;
+  readonly name: string;
+
+  constructor(user: User) {
+    this.id = user.id;
+    this.name = user.name;
+  }
 }
