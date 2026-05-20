@@ -10,7 +10,6 @@ import {
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { ListUserDto } from './dto/list-user.dto.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
-import { User } from './user.entity.js';
 import { UserService } from './user.service.js';
 
 @Controller('/users')
@@ -19,9 +18,8 @@ export class UserController {
 
   @Post()
   async createUser(@Body() userData: CreateUserDto) {
-    const user = new User(userData);
-    await this.userService.createUser(user);
-    return new ListUserDto(user.id, user.name);
+    const savedUser = await this.userService.createUser(userData);
+    return new ListUserDto(savedUser);
   }
 
   @Get()
