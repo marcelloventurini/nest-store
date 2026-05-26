@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { DataSource } from 'typeorm';
 
 export const AppDataSource = new DataSource({
@@ -7,7 +8,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [__dirname + '/src/**/*.entity.{js,ts}'],
-  migrations: [__dirname + '/src/database/migrations/*.{js,ts}'],
+  entities: ['/src/**/*.entity.{js,ts}'],
+  migrations: ['/src/database/migrations/*.{js,ts}'],
   synchronize: false,
 });
